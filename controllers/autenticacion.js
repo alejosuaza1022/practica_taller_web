@@ -11,7 +11,7 @@ require('dotenv').config({
  */
 async function consultar_usuario(usuario) {
     let _servicio = new s_pg();
-    let valores = [usuario.id, usuario.clave];
+    let valores = [usuario.documento, usuario.clave];
     let sql = `SELECT * FROM usuarios WHERE documento=$1 AND clave=md5($2)`;
     return await _servicio.eje_sql(sql, valores);
 };
@@ -61,8 +61,8 @@ let validar_usuario = async(req, res) => {
 
 }
 
-let decode_pesona = (req, res) => {
-    let token = req.headers.token;
+let decode_pesona = (token) => {
+
     try {
         return jwt.decode(token);
     } catch (error) {

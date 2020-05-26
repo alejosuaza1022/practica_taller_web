@@ -4,10 +4,10 @@ const s_pg = require("../services/postgres")
 let insertar_usuario = async(req, res) => {
     let servicio = new s_pg()
     let usuario = req.body;
-    let sql = "insert into usuarios(documento,tipo_documento,nombre,apellidos, celular,correo,rol,clave)" +
-        "values($1,$2,$3,$4,$5,$6,$7,$8);"
+    let sql = "insert into usuarios(documento,tipo_documento,nombre,apellidos,celular,correo,rol,clave)" +
+        "values($1,$2,$3,$4,$5,$6,$7,md5($8));"
     await servicio.eje_sql(sql, [usuario.documento, usuario.tipo_documento, usuario.nombre,
-        usuario.apelldios, usuario.celular, usuario.correo, usuario.rol, usuario.clave
+        usuario.apellidos, usuario.celular, usuario.correo, usuario.rol, usuario.clave
     ]).then(res_bd => {
         res.status(200).send({
             message: ' usuario agregado ',
