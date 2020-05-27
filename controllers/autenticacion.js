@@ -47,6 +47,7 @@ let validar_usuario = async(req, res) => {
                     .send({
                         info: token,
                         nombre: usuario.nombre,
+                        rol: usuario.rol,
                         mensaje: "evaluador autenticado."
                     });
             } else {

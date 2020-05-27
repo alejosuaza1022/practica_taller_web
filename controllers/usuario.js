@@ -19,6 +19,19 @@ let insertar_usuario = async(req, res) => {
     }))
 }
 
+let obtener_mecanicos = async(req, res) => {
+    let servicio = new s_pg();
+    let sql = 'select documento,tipo_documento,nombre,apellidos, celular,correo,rol  from usuarios where rol = 1;'
+    await servicio.eje_sql(sql).then(res_bd => {
+        res.status(200).send({
+            message: ' exitoso ',
+            usuario: res_bd.rows
+        });
+    }).catch(error => res.status(500).send({
+        message: 'se detecto un error',
+        error: error
+    }));
+}
 let obtener_usuarios = async(req, res) => {
     let servicio = new s_pg();
     let sql = 'select documento,tipo_documento,nombre,apellidos, celular,correo,rol  from usuarios;'
@@ -37,13 +50,14 @@ let actualizar_usuario = async(req, res) => {
     let servicio = new s_pg();
     let usuario = req.body;
     let id_usuario = req.params.id;
-    let sql = 'update usuarios set celular = $1, nombre = $2,' +
-        'apellidos = $3 , correo = $4, ' +
-        'rol = $5  where id = $5;'
+    console.log(usuario);
 
+    let sql = 'update usuarios set celular = $1, nombre = $2,' +
+        'apellidos = $3 , correo = $4,' +
+        'rol = $5,tipo_documento = $6 where documento = $7;'
 
     await servicio.eje_sql(sql, [usuario.celular, usuario.nombre, usuario.apellidos,
-        usuario.correo, usuario.rol, id_usuario
+        usuario.correo, usuario.rol, usuario.tipo_documento, id_usuario
     ]).
     then(res_bd => {
         console.log(req.body);
@@ -62,7 +76,7 @@ let actualizar_usuario = async(req, res) => {
 let eliminar_usuario = async(req, res) => {
     let servicio = new s_pg();
     let id_usuario = req.params.id
-    let sql = 'delete from usuarios where id = $1 ;'
+    let sql = 'delete from usuarios where documento = $1 ;'
     await servicio.eje_sql(sql, [id_usuario]).then(res_bd => {
         res.status(200).send({
             message: ' usuario eliminado ',
@@ -84,9 +98,9 @@ let registar_mantenimiento = async(req, res) => {
     let id_usuario = req.params.id
     let fecha = req.body.fecha
     let trabajos_realizados = req.body.trabajos_realizados
-    let horas_invertidas = req.body;
-
-    let sql = "updata mantenimientos set trabajos_realizados = $1,  horas_invertidas =$3 where id_mecanico = $4 and placa =$5 and fecha=$6 ;"
+    let horas_invertidas = req.body.horas_invertidas;
+    console.log(horas_invertidas, fecha, req.body.trabajos_realizados, req.body)
+    let sql = "update mantenimientos set trabajos_realizados = $1,  horas_invertidas =$2 where id_mecanico = $3 and placa =$4 and fecha=$5 ;"
     await servicio.eje_sql(sql, [trabajos_realizados, horas_invertidas, id_usuario, placa, fecha]).then(async bd_res => {
         sql = "update motos set estado = $1 where placa = $2"
         await servicio.eje_sql(sql, ["espera", placa]).then(bd_res2 =>
@@ -103,6 +117,29 @@ let registar_mantenimiento = async(req, res) => {
         message: 'se detecto un error',
         error: error
     }))
+
+
+}
+let horas_laboradas = async(req, res) => {
+    let servicio = new s_pg()
+    let id = req.params.id;
+    console.log(req.body);
+    let fechaini = req.body.fechaini
+    let fechafin = req.body.fechafin
+    let sql = 'select id_mecanico,sum(horas_invertidas) from mantenimientos where fecha between $1 and $2 and id_mecanico = $3 group by id_mecanico;'
+    await servicio.eje_sql(sql, [fechaini, fechafin, id]).then(bd_res => {
+        res.status(200).send({
+            message: "exitoso",
+            data: bd_res.rows
+        })
+    }).catch(err => {
+        res.status(500).send({
+            message: "error",
+            error: err
+        })
+
+    })
+
 }
 
 
@@ -111,5 +148,7 @@ module.exports = {
     eliminar_usuario,
     actualizar_usuario,
     obtener_usuarios,
-    registar_mantenimiento
+    registar_mantenimiento,
+    obtener_mecanicos,
+    horas_laboradas
 }
