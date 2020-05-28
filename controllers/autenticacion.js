@@ -48,11 +48,11 @@ let validar_usuario = async(req, res) => {
                         info: token,
                         nombre: usuario.nombre,
                         rol: usuario.rol,
-                        mensaje: "evaluador autenticado."
+                        message: "evaluador autenticado."
                     });
             } else {
                 res.status(400).send({
-                    mensaje: "Documento y/o clave incorrecta.",
+                    message: "Documento y/o clave incorrecta.",
                 });
             }
         })
@@ -73,6 +73,7 @@ let decode_pesona = (token) => {
 }
 
 let verificarAut = (req, res) => {
+    console.log(req.body);
     try {
         let token = req.headers.token;
         let modulo = req.body.modulo;
@@ -85,13 +86,13 @@ let verificarAut = (req, res) => {
         }
         res.status(200).send({
             ok: true,
-            mensaje: "Autenticado.",
+            message: "Autenticado.",
         });
     } catch (error) {
         res.status(401).send({
             ok: false,
             info: error,
-            mensaje: "No autenticado.",
+            message: "No autenticado.",
         });
     }
 }

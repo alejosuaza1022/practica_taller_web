@@ -14,7 +14,7 @@ let insertar_usuario = async(req, res) => {
             usuario: res_bd
         })
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error insertando en la base de datos, intente más tarde',
         error: error
     }))
 }
@@ -28,7 +28,7 @@ let obtener_mecanicos = async(req, res) => {
             usuario: res_bd.rows
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto un error en la base de datos, intente más tarde',
         error: error
     }));
 }
@@ -41,7 +41,8 @@ let obtener_usuarios = async(req, res) => {
             usuario: res_bd.rows
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }));
 }
@@ -66,7 +67,7 @@ let actualizar_usuario = async(req, res) => {
             usuario: res_bd
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
         error: error
     }));
 
@@ -83,7 +84,8 @@ let eliminar_usuario = async(req, res) => {
             evaluador: res_bd
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error eliminando en la base de datos, intente más tarde',
+
         error: error
     }));
 
@@ -109,12 +111,12 @@ let registar_mantenimiento = async(req, res) => {
                 bd: bd_res
             })
         ).catch(error => res.status(500).send({
-            message: 'se detecto un error',
+            message: 'se detecto un error en la base de datos, intente más tarde',
             error: error
         }))
 
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto un error en la base de datos, intente más tarde',
         error: error
     }))
 
@@ -134,7 +136,7 @@ let horas_laboradas = async(req, res) => {
         })
     }).catch(err => {
         res.status(500).send({
-            message: "error",
+            message: 'se detecto un error en la base de datos, intente más tarde',
             error: err
         })
 

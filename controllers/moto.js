@@ -15,7 +15,8 @@ let insertar_moto = async(req, res) => {
             moto: res_bd
         })
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }))
 }
@@ -29,7 +30,8 @@ let obtener_motos = async(req, res) => {
             moto: res_bd.rows
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }));
 }
@@ -49,7 +51,8 @@ let actualizar_moto = async(req, res) => {
             moto: res_bd
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }));
 
@@ -66,7 +69,8 @@ let eliminar_moto = async(req, res) => {
             evaluador: res_bd
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }));
 
@@ -81,7 +85,8 @@ let obtener_motos_disponibles = async(req, res) => {
             usuario: res_bd.rows
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }));
 }

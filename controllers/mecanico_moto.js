@@ -14,12 +14,14 @@ let insertar_mantenimiento = async(req, res) => {
                 bd: bd_res
             })
         ).catch(error => res.status(500).send({
-            message: 'se detecto un error',
+            message: 'se detecto  un error en la base de datos, intente más tarde',
+
             error: error
         }))
 
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }))
 
@@ -44,11 +46,13 @@ let eliminar_mantenimiento = async(req, res) => {
                 bd: res_bd
             })
         ).catch(error => res.status(500).send({
-            message: 'se detecto un error',
+            message: 'se detecto  un error en la base de datos, intente más tarde',
+
             error: error
         }))
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }));
 }
@@ -63,7 +67,8 @@ let obtener_matenimientos_disponibles = async(req, res) => {
             data: res_bd.rows
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }));
 }
@@ -76,7 +81,8 @@ let obtener_matenimientos_disponiblesT = async(req, res) => {
             data: res_bd.rows
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }));
 }
@@ -89,7 +95,8 @@ let obtener_matenimientos_disponiblesTot = async(req, res) => {
             data: res_bd.rows
         });
     }).catch(error => res.status(500).send({
-        message: 'se detecto un error',
+        message: 'se detecto  un error en la base de datos, intente más tarde',
+
         error: error
     }));
 }
