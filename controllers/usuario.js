@@ -78,7 +78,7 @@ let eliminar_usuario = async(req, res) => {
     let servicio = new s_pg();
     let id_usuario = req.params.id
     let sql = 'delete from usuarios where documento = $1 ;'
-    await servicio.eje_sql(sql, [id_usuario]).then(res_bd => {
+    await servicio.eje_sql(sql, [id_usuario]).then(async res_bd => {
         sql = 'delete from mantenimientos where id_mecanico = $1 and trabajos_realizados is null and horas_invertidas is null;'
         await servicio.eje_sql(sql, [id_usuario]).then(bd_res => {
             res.status(200).send({
