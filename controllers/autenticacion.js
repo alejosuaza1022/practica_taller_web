@@ -1,12 +1,11 @@
 const s_pg = require("../services/postgres")
 const jwt = require("jsonwebtoken");
 const path = require('path')
-require('dotenv').config()
-
-/**
- * Consultar la usuario en el sistema con documento y clave
- * @param {*} usuario
- */
+const key = "3b41fd3b3667d0a7b303a1f03c5a0f0662f97581443850ee9931d22f38e08c76"
+    /**
+     * Consultar la usuario en el sistema con documento y clave
+     * @param {*} usuario
+     */
 async function consultar_usuario(usuario) {
     let _servicio = new s_pg();
     let valores = [usuario.documento, usuario.clave];
@@ -16,7 +15,7 @@ async function consultar_usuario(usuario) {
 
 function generar_token(usuario) {
     delete usuario.clave;
-    let token = jwt.sign(usuario, process.env.KEY);
+    let token = jwt.sign(usuario, key);
     return token;
 }
 
@@ -25,7 +24,7 @@ function generar_token(usuario) {
 
 
 function verificar_token(token) {
-    return jwt.verify(token, process.env.KEY);
+    return jwt.verify(token, key);
 }
 
 
