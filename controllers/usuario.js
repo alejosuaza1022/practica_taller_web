@@ -70,17 +70,14 @@ let actualizar_usuario = async(req, res) => {
         message: 'se detecto  un error en la base de datos, intente más tarde',
         error: error
     }));
-
-
 }
-
 let eliminar_usuario = async(req, res) => {
     let servicio = new s_pg();
     let id_usuario = req.params.id
     let sql = 'delete from usuarios where documento = $1 ;'
     await servicio.eje_sql(sql, [id_usuario]).then(async res_bd => {
         sql = 'delete from mantenimientos where id_mecanico = $1 and trabajos_realizados is null and horas_invertidas is null;'
-        await servicio.eje_sql(sql, [id_usuario]).then(bd_res => {
+        await servicio.eje_sql(sql, [id_usuario]).then(async bd_res => {
             res.status(200).send({
                 message: ' usuario eliminado ',
                 evaluador: res_bd,
