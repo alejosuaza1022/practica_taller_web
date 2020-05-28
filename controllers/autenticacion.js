@@ -1,9 +1,7 @@
 const s_pg = require("../services/postgres")
 const jwt = require("jsonwebtoken");
 const path = require('path')
-require('dotenv').config({
-    path: path.resolve(__dirname, '../.env')
-})
+require('dotenv').config()
 
 /**
  * Consultar la usuario en el sistema con documento y clave
